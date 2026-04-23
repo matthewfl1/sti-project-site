@@ -2,41 +2,38 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>STI Group | Интеллектуальный конфигуратор изделий</title>
+    <title>STI Group | ERP-система управления метизным производством</title>
     <style>
-        :root { --red: #b30000; --dark: #1e293b; --border: #e2e8f0; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; background: #f8fafc; color: var(--dark); }
+        :root { --red: #b30000; --dark: #0f172a; --border: #e2e8f0; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: #f8fafc; color: var(--dark); }
         
-        /* ШАПКА */
-        header { background: #fff; border-bottom: 3px solid var(--red); padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .logo-text { font-weight: 900; font-size: 22px; color: var(--red); }
+        header { background: #fff; border-bottom: 2px solid var(--red); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .logo { font-weight: 800; font-size: 18px; color: var(--red); text-transform: uppercase; }
         
-        .layout { display: grid; grid-template-columns: 260px 1fr 380px; gap: 25px; padding: 25px 5%; max-width: 1650px; margin: auto; }
+        .main-layout { display: grid; grid-template-columns: 260px 1fr 380px; gap: 25px; padding: 25px 5%; max-width: 1700px; margin: auto; }
 
-        /* НАВИГАЦИЯ */
-        .sidebar { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid var(--border); height: fit-content; position: sticky; top: 90px; }
-        .sidebar h3 { font-size: 11px; text-transform: uppercase; color: #94a3b8; margin-bottom: 15px; letter-spacing: 1px; }
-        .nav-btn { display: block; padding: 10px 15px; margin-bottom: 5px; color: #475569; text-decoration: none; border-radius: 8px; font-size: 14px; transition: 0.2s; }
-        .nav-btn:hover { background: #f1f5f9; color: var(--red); }
+        /* Навигация */
+        .sidebar { position: sticky; top: 90px; height: fit-content; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
+        .sidebar h3 { font-size: 11px; color: #94a3b8; text-transform: uppercase; margin-bottom: 15px; }
+        .nav-btn { display: block; padding: 10px 12px; margin-bottom: 5px; color: #475569; text-decoration: none; border-radius: 6px; font-size: 13px; transition: 0.2s; }
+        .nav-btn:hover { background: #fef2f2; color: var(--red); }
 
-        /* КАТАЛОГ */
-        .cat-section { margin-bottom: 50px; }
-        .cat-title { font-size: 20px; font-weight: 800; margin-bottom: 20px; color: var(--dark); display: flex; align-items: center; gap: 10px; }
-        .cat-title::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+        /* Сетка товаров */
+        .section-title { font-size: 20px; font-weight: 800; margin: 40px 0 20px; padding-bottom: 10px; border-bottom: 2px solid var(--border); }
+        .section-title:first-child { margin-top: 0; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
         
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
-        .card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 18px; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; }
-        .card:hover { border-color: var(--red); box-shadow: 0 10px 20px rgba(0,0,0,0.05); transform: translateY(-3px); }
-        .card h4 { margin: 0 0 8px; font-size: 15px; color: #0f172a; }
-        .card p { font-size: 12px; color: #64748b; margin-bottom: 15px; flex-grow: 1; }
-        .add-link { background: #f1f5f9; color: #475569; text-align: center; padding: 8px; border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
-        .card:hover .add-link { background: var(--red); color: #fff; }
+        .product-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 15px; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; }
+        .product-card:hover { border-color: var(--red); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .product-card h4 { margin: 0 0 8px; font-size: 14px; line-height: 1.2; height: 34px; overflow: hidden; }
+        .product-card p { font-size: 11px; color: #64748b; margin-bottom: 15px; flex-grow: 1; }
+        .select-btn { background: #f1f5f9; color: #475569; text-align: center; padding: 8px; border-radius: 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; border: none; width: 100%; cursor: pointer; }
+        .product-card:hover .select-btn { background: var(--red); color: #fff; }
 
-        /* ВИДЖЕТ */
-        .widget-sticky { position: sticky; top: 90px; height: 650px; }
-        .widget-box { background: #fff; border: 2px solid var(--red); border-radius: 12px; overflow: hidden; height: 100%; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-        .widget-head { background: var(--red); color: #fff; padding: 12px; text-align: center; font-size: 13px; font-weight: bold; }
-        iframe { width: 100%; height: calc(100% - 40px); border: none; }
+        /* Калькулятор */
+        .sticky-calc { position: sticky; top: 90px; height: 700px; }
+        .calc-wrapper { background: #fff; border: 2px solid var(--red); border-radius: 12px; height: 100%; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        iframe { width: 100%; height: 100%; border: none; }
 
         footer { text-align: center; padding: 40px; color: #94a3b8; font-size: 12px; }
     </style>
@@ -44,111 +41,109 @@
 <body>
 
 <header>
-    <div class="logo-text">STI GROUP <span style="font-weight:300; font-size:14px; color:#94a3b8;">| СИСТЕМА КОНФИГУРАЦИИ</span></div>
+    <div class="logo">STI GROUP | ERP SYSTEM</div>
+    <div style="font-size: 11px; color: #64748b;">Дата сессии: 23.04.2026</div>
 </header>
 
-<div class="layout">
+<div class="main-layout">
     <aside class="sidebar">
-        <h3>Разделы</h3>
-        <a href="#section-mesh" class="nav-btn">Сетки стальные</a>
-        <a href="#section-wire" class="nav-btn">Проволока ВР / ОК</a>
-        <a href="#section-bolts" class="nav-btn">Болты и гайки</a>
-        <a href="#section-ropes" class="nav-btn">Канаты стальные</a>
+        <h3>Номенклатура</h3>
+        <a href="#sec-сетка" class="nav-btn">Сетки (ГОСТ 23279)</a>
+        <a href="#sec-проволока" class="nav-btn">Проволока (ГОСТ 6727)</a>
+        <a href="#sec-крепеж" class="nav-btn">Крепеж (ГОСТ 22353)</a>
+        <a href="#sec-канат" class="nav-btn">Канаты (ГОСТ 7668)</a>
     </aside>
 
-    <main>
-        <section class="cat-section" id="section-mesh">
-            <div class="cat-title">Сетки арматурные (ГОСТ 23279)</div>
-            <div class="grid">
-                <div class="card" onclick="toCalc('Сетка 50х50х3')">
-                    <h4>Сетка 50х50х3</h4>
-                    <p>Легкая серия. Карта 0.5х2.0м. Для стяжки и кладки.</p>
-                    <div class="add-link">Выбрать для расчета</div>
-                </div>
-                <div class="card" onclick="toCalc('Сетка 100х100х4')">
-                    <h4>Сетка 100х100х4</h4>
-                    <p>Средняя серия. Карта 2.0х3.0м. Универсальная.</p>
-                    <div class="add-link">Выбрать для расчета</div>
-                </div>
-                <div class="card" onclick="toCalc('Сетка 150х150х5')">
-                    <h4>Сетка 150х150х5</h4>
-                    <p>Тяжелая серия. Для дорожных плит и фундаментов.</p>
-                    <div class="add-link">Выбрать для расчета</div>
-                </div>
-            </div>
-        </section>
+    <main id="catalog-container">
+        </main>
 
-        <section class="cat-section" id="section-wire">
-            <div class="cat-title">Проволока (ГОСТ 6727 / 3282)</div>
-            <div class="grid">
-                <div class="card" onclick="toCalc('Проволока 3.0 ВР-1')">
-                    <h4>Проволока 3.0 ВР-1</h4>
-                    <p>Рифленая. В бухтах по 1000 кг. Для армирования.</p>
-                    <div class="add-link">Выбрать для расчета</div>
-                </div>
-                <div class="card" onclick="toCalc('Проволока 4.0 ВР-1')">
-                    <h4>Проволока 4.0 ВР-1</h4>
-                    <p>Повышенная прочность. Для сварных сеток.</p>
-                    <div class="add-link">Выбрать для расчета</div>
-                </div>
-                <div class="card" onclick="toCalc('Проволока 1.2 ОК Т/О')">
-                    <h4>Проволока 1.2 ОК Т/О</h4>
-                    <p>Вязальная мягкая. Для увязки арматуры.</p>
-                    <div class="add-link">Выбрать для расчета</div>
-                </div>
-            </div>
-        </section>
-
-        <section class="cat-section" id="section-bolts">
-            <div class="cat-title">Высокопрочный крепеж</div>
-            <div class="grid">
-                <div class="card" onclick="toCalc('Болт M16x60')">
-                    <h4>Болт M16x60</h4>
-                    <p>ГОСТ 22353. Класс прочности 10.9. Оцинкованный.</p>
-                    <div class="add-link">Выбрать для расчета</div>
-                </div>
-                <div class="card" onclick="toCalc('Гайка M16')">
-                    <h4>Гайка M16</h4>
-                    <p>ГОСТ 22354. Шестигранная высокопрочная.</p>
-                    <div class="add-link">Выбрать для расчета</div>
-                </div>
-                <div class="card" onclick="toCalc('Болт M20x80')">
-                    <h4>Болт M20x80</h4>
-                    <p>Для тяжелых металлоконструкций.</p>
-                    <div class="add-link">Выбрать для расчета</div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <aside class="widget-sticky">
-        <div class="widget-box" id="w-box">
-            <div class="widget-head">КОНФИГУРАТОР ОТГРУЗКИ</div>
+    <aside class="sticky-calc">
+        <div class="calc-wrapper" id="calc-box">
             <iframe id="calcFrame" src="https://matthewfl1.github.io/sti-project/"></iframe>
         </div>
     </aside>
 </div>
 
-<footer>
-    © 2026 ООО "Стройтехинвест" | Информационная система аппаратных изделий
-</footer>
+<footer>© 2026 ООО "Стройтехинвест" | Кафедра ИСиТ | Дипломный проект</footer>
 
 <script>
-    function toCalc(name) {
-        const frame = document.getElementById('calcFrame');
-        const box = document.getElementById('w-box');
+    // Массив данных, строго соответствующий твоей новой таблице
+    const database = [
+        // СЕТКИ
+        { cat: 'сетка', name: 'Сетка сварная 50х50х3 (0.5х2.0)', desc: 'Арматурная сталь ВР-1. Карта для стяжки.' },
+        { cat: 'сетка', name: 'Сетка сварная 100х100х4 (2.0х3.0)', desc: 'Дорожная сетка. Универсальное применение.' },
+        { cat: 'сетка', name: 'Сетка сварная 150х150х6 (2.0х6.0)', desc: 'Тяжелая сетка для фундаментных плит.' },
+        { cat: 'сетка', name: 'Сетка сварная 200х200х10 (2.0х6.0)', desc: 'Промышленное армирование конструкций.' },
         
-        // Отправляем данные в калькулятор
-        frame.contentWindow.postMessage({ type: 'setProduct', name: name }, '*');
+        // ПРОВОЛОКА
+        { cat: 'проволока', name: 'Проволока 1.2 ОК Т/О (Вязальная)', desc: 'Мягкая термообработанная проволока для вязки.' },
+        { cat: 'проволока', name: 'Проволока 3.0 ВР-1 (Бухта)', desc: 'Рифленая сталь для производства сеток.' },
+        { cat: 'проволока', name: 'Проволока 5.0 ВР-1 (Бухта)', desc: 'Высокопрочная арматурная проволока.' },
         
-        // Эффект "подсветки" при клике
-        box.style.transform = 'scale(1.02)';
-        box.style.borderColor = '#00ff00';
-        setTimeout(() => {
-            box.style.transform = 'scale(1)';
-            box.style.borderColor = '#b30000';
-        }, 300);
+        // КРЕПЕЖ
+        { cat: 'крепеж', name: 'Болт высокопрочный M16x60', desc: 'ГОСТ 22353. Класс прочности 10.9.' },
+        { cat: 'крепеж', name: 'Болт высокопрочный M24x120', desc: 'Для мостовых и тяжелых конструкций.' },
+        { cat: 'крепеж', name: 'Гайка высокопрочная M24', desc: 'ГОСТ 22354. Класс прочности 10.0.' },
+        { cat: 'крепеж', name: 'Шайба закаленная 24', desc: 'ГОСТ 22355. Твердость 35-45 HRC.' },
+        
+        // КАНАТЫ
+        { cat: 'канат', name: 'Канат стальной 12.0 мм (ГОСТ 7668)', desc: 'Грузовой канат для кранового оборудования.' },
+        { cat: 'канат', name: 'Канат стальной 18.0 мм (ГОСТ 7668)', desc: 'Повышенная гибкость, стальной сердечник.' }
+    ];
+
+    // Функция рендеринга
+    function renderCatalog() {
+        const container = document.getElementById('catalog-container');
+        const sections = {
+            'сетка': 'Сетки арматурные (ГОСТ 23279)',
+            'проволока': 'Проволока стальная (ГОСТ 6727)',
+            'крепеж': 'Высокопрочный крепеж (ГОСТ 22353)',
+            'канат': 'Канаты стальные (ГОСТ 7668)'
+        };
+
+        for (let [id, title] of Object.entries(sections)) {
+            const section = document.createElement('section');
+            section.id = `sec-${id}`;
+            section.innerHTML = `<div class="section-title">${title}</div>`;
+            
+            const grid = document.createElement('div');
+            grid.className = 'products-grid';
+
+            database.filter(p => p.cat === id).forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.onclick = () => selectProduct(product.name);
+                card.innerHTML = `
+                    <h4>${product.name}</h4>
+                    <p>${product.desc}</p>
+                    <button class="select-btn">Выбрать для расчета</button>
+                `;
+                grid.appendChild(card);
+            });
+            
+            section.appendChild(grid);
+            container.appendChild(section);
+        }
     }
+
+    // Функция отправки данных в калькулятор
+    function selectProduct(productName) {
+        const frame = document.getElementById('calcFrame');
+        const box = document.getElementById('calc-box');
+        
+        // Отправляем postMessage во фрейм калькулятора
+        frame.contentWindow.postMessage({ type: 'setProduct', name: productName }, '*');
+        
+        // Визуальное подтверждение
+        box.style.borderColor = '#00ff00';
+        box.style.transform = 'scale(1.02)';
+        setTimeout(() => {
+            box.style.borderColor = '#b30000';
+            box.style.transform = 'scale(1)';
+        }, 400);
+    }
+
+    renderCatalog();
 </script>
 
 </body>
