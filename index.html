@@ -3,74 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STI Group | Промышленная логистика</title>
+    <title>STI Group | Система промышленной логистики</title>
     <style>
-        :root { --main-red: #b30000; --dark-grey: #333; --light-bg: #f4f4f4; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        :root { --red: #b30000; --dark: #1a1a1a; --gray: #f8f9fa; --border: #e2e8f0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; background: #fff; color: var(--dark); line-height: 1.5; }
         
-        /* Шапка */
-        header { background: #white; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--main-red); }
-        .logo { font-weight: bold; font-size: 24px; color: var(--main-red); }
-        nav a { margin-left: 20px; text-decoration: none; color: var(--dark-grey); font-weight: 600; font-size: 14px; text-transform: uppercase; }
-        nav a:hover { color: var(--main-red); }
+        /* HEADER */
+        header { border-bottom: 3px solid var(--red); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: #fff; z-index: 100; }
+        .logo-box { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-text { font-size: 22px; font-weight: 900; color: var(--red); letter-spacing: -1px; }
+        nav a { text-decoration: none; color: var(--dark); font-weight: 600; font-size: 13px; text-transform: uppercase; margin-left: 25px; transition: 0.2s; }
+        nav a:hover { color: var(--red); }
 
-        /* Основной контент */
-        .container { display: flex; flex: 1; padding: 20px 5%; gap: 30px; }
+        /* LAYOUT */
+        .wrapper { display: grid; grid-template-columns: 260px 1fr 380px; gap: 30px; padding: 30px 5%; min-height: 80vh; }
 
-        /* Боковое меню */
-        aside { width: 250px; flex-shrink: 0; }
-        .menu-item { 
-            display: block; padding: 12px 15px; background: white; border: 1px solid #ddd; 
-            margin-bottom: 5px; text-decoration: none; color: #555; font-size: 14px; border-radius: 4px;
-            transition: 0.3s;
+        /* SIDEBAR MENU */
+        .side-nav h3 { font-size: 11px; color: #999; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; }
+        .nav-btn { 
+            display: block; padding: 12px 15px; border: 1px solid var(--border); margin-bottom: 8px;
+            text-decoration: none; color: #444; border-radius: 6px; font-size: 14px; transition: 0.3s;
         }
-        .menu-item:hover, .menu-item.active { background: var(--main-red); color: white; border-color: var(--main-red); }
-        .section-title { font-size: 12px; color: #999; text-transform: uppercase; margin: 20px 0 10px; letter-spacing: 1px; }
+        .nav-btn:hover { border-color: var(--red); color: var(--red); background: #fff5f5; padding-left: 20px; }
+        .nav-btn.active { background: var(--red); color: #fff; border-color: var(--red); }
 
-        /* Контентная область */
-        main { flex: 1; background: white; }
-        .widget-box { 
-            border: 1px solid #eee; border-radius: 8px; overflow: hidden; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); background: #fff;
+        /* CATALOG AREA */
+        .catalog-section { margin-bottom: 40px; }
+        .catalog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .product-card { border: 1px solid var(--border); padding: 20px; border-radius: 10px; transition: 0.3s; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-color: var(--red); transform: translateY(-2px); }
+        .product-card h4 { margin: 0 0 10px; font-size: 16px; color: var(--dark); border-left: 3px solid var(--red); padding-left: 10px; }
+        .product-card p { font-size: 13px; color: #666; margin-bottom: 15px; }
+        .card-btn { 
+            text-align: center; text-decoration: none; font-size: 12px; font-weight: bold; 
+            color: var(--red); border: 1px solid var(--red); padding: 8px; border-radius: 4px; transition: 0.2s;
         }
-        iframe { width: 100%; height: 600px; border: none; }
+        .card-btn:hover { background: var(--red); color: #fff; }
 
-        footer { background: #2c3e50; color: white; padding: 20px; text-align: center; font-size: 12px; }
+        /* WIDGET CALCULATOR */
+        .widget-sticky { position: sticky; top: 100px; }
+        .widget-header { background: var(--red); color: #fff; padding: 15px; border-radius: 8px 8px 0 0; text-align: center; }
+        .widget-header p { margin: 5px 0 0; font-size: 12px; opacity: 0.9; }
+        .widget-frame { 
+            border: 2px solid var(--red); border-top: none; border-radius: 0 0 8px 8px; 
+            overflow: hidden; height: 580px; background: #fff;
+        }
+        iframe { width: 100%; height: 100%; border: none; }
+
+        footer { background: #1a1a1a; color: #fff; padding: 40px 5%; text-align: center; font-size: 12px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">STI GROUP <span style="font-weight: 300; color: #666; font-size: 14px;">| INDUSTRIAL SOLUTIONS</span></div>
+    <a href="#" class="logo-box">
+        <span class="logo-text">STI GROUP</span>
+        <span style="color: #ccc; font-weight: 300;">| INDUSTRIAL</span>
+    </a>
     <nav>
-        <a href="index.html">Каталог</a>
+        <a href="#catalog">Продукция</a>
         <a href="https://stigroup-orel.ru/sklady/" target="_blank">Склады</a>
         <a href="https://stigroup-orel.ru/dokumentaciya/" target="_blank">Документация</a>
+        <a href="https://stigroup-orel.ru/contacts/" target="_blank">Контакты</a>
     </nav>
 </header>
 
-<div class="container">
-    <aside>
-        <div class="section-title">Номенклатура</div>
-        <a href="#" class="menu-item">Сетка сварная арматурная</a>
-        <a href="#" class="menu-item">Проволока стальная ВР-1</a>
-        <a href="#" class="menu-item">Проволока стальная ОК</a>
-        <a href="#" class="menu-item">Канат стальной ГОСТ</a>
+<div class="wrapper">
+    <aside class="side-nav">
+        <h3>Номенклатура</h3>
+        <a href="#setka" class="nav-btn">Сетка арматурная</a>
+        <a href="#provoloka" class="nav-btn">Проволока ВР-1 / ОК</a>
+        <a href="#kanat" class="nav-btn">Канаты стальные</a>
+        <a href="#metizi" class="nav-btn">Метизная продукция</a>
         
-        <div class="section-title">Инструменты</div>
-        <a href="index.html" class="menu-item active">Калькулятор веса и ТС</a>
-        <a href="#" class="menu-item">Архив отгрузок</a>
+        <h3 style="margin-top: 30px;">Инструменты</h3>
+        <a href="#" class="nav-btn active">Калькулятор логистики</a>
+        <a href="https://stigroup-orel.ru/dokumentaciya/" target="_blank" class="nav-btn">База ГОСТов</a>
     </aside>
 
-    <main>
-        <h1 style="font-size: 22px; color: #2c3e50; margin-bottom: 20px;">Конфигуратор логистических единиц</h1>
-        <div class="widget-box">
-            <iframe src="https://matthewfl1.github.io/sti-project/"></iframe>
+    <main id="catalog">
+        <div class="catalog-section" id="setka">
+            <h2>Сетка сварная арматурная</h2>
+            <div class="catalog-grid">
+                <div class="product-card">
+                    <div>
+                        <h4>Сетка 50х50х3</h4>
+                        <p>ГОСТ 23279-2012. Применяется для армирования дорожных покрытий и полов.</p>
+                    </div>
+                    <a href="https://stigroup-orel.ru/setka-svarnaya/" target="_blank" class="card-btn">ПЕРЕЙТИ В КАТАЛОГ</a>
+                </div>
+                <div class="product-card">
+                    <div>
+                        <h4>Сетка 100х100х5</h4>
+                        <p>Тяжелая сетка для монолитного строительства и фундаментов.</p>
+                    </div>
+                    <a href="https://stigroup-orel.ru/setka-svarnaya/" target="_blank" class="card-btn">ПЕРЕЙТИ В КАТАЛОГ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="catalog-section" id="provoloka">
+            <h2>Проволока стальная</h2>
+            <div class="catalog-grid">
+                <div class="product-card">
+                    <div>
+                        <h4>Проволока ВР-1</h4>
+                        <p>ГОСТ 6727-80. Холоднотянутая проволока для армирования конструкций.</p>
+                    </div>
+                    <a href="https://stigroup-orel.ru/provoloka-v-r-1/" target="_blank" class="card-btn">СМОТРЕТЬ ГОСТ</a>
+                </div>
+                <div class="product-card">
+                    <div>
+                        <h4>Проволока ОК</h4>
+                        <p>ГОСТ 3282-74. Проволока общего назначения (термически обработанная).</p>
+                    </div>
+                    <a href="https://stigroup-orel.ru/provoloka-o-k/" target="_blank" class="card-btn">СМОТРЕТЬ ГОСТ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="catalog-section" id="kanat">
+            <h2>Стальные канаты</h2>
+            <div class="catalog-grid">
+                <div class="product-card">
+                    <div>
+                        <h4>Канат ГОСТ 2688-80</h4>
+                        <p>Тип ЛК-Р. Двойная свивка с органическим сердечником.</p>
+                    </div>
+                    <a href="https://stigroup-orel.ru/kanaty-stalnye/" target="_blank" class="card-btn">ТЕХ. ХАРАКТЕРИСТИКИ</a>
+                </div>
+            </div>
         </div>
     </main>
+
+    <section>
+        <div class="widget-sticky">
+            <div class="widget-header">
+                <strong>ЛОГИСТИЧЕСКИЙ МОДУЛЬ</strong>
+                <p>Мгновенный расчет веса и ТС</p>
+            </div>
+            <div class="widget-frame">
+                <iframe src="https://matthewfl1.github.io/sti-project/"></iframe>
+            </div>
+        </div>
+    </section>
 </div>
 
 <footer>
+    <div style="margin-bottom: 15px; font-weight: bold; color: var(--red);">STI GROUP INDUSTRIAL SOLUTIONS</div>
     © 2026 ООО "Стройтехинвест". Система автоматизации метизного производства.<br>
     г. Орел, ул. Поселковая, д. 15 | Департамент ИТ
 </footer>
