@@ -3,148 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STI Group | Интеллектуальная логистическая система</title>
+    <title>STI Group | Система управления отгрузками v2.0</title>
     <style>
-        :root { --red: #b30000; --dark: #1a1a1a; --light-gray: #f4f7f6; --border: #e2e8f0; }
+        :root { --red: #b30000; --dark: #1e293b; --bg: #f8fafc; --border: #e2e8f0; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; background: #fff; color: var(--dark); line-height: 1.6; }
+        body { font-family: 'Inter', 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: var(--dark); }
         
         /* ШАПКА */
-        header { border-bottom: 3px solid var(--red); padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(5px); z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .logo-group { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .logo-main { font-size: 24px; font-weight: 900; color: var(--red); letter-spacing: -1px; }
-        .logo-sub { color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; border-left: 1px solid #ddd; padding-left: 12px; }
-        nav a { text-decoration: none; color: var(--dark); font-weight: 600; font-size: 13px; text-transform: uppercase; margin-left: 25px; transition: 0.3s; }
+        header { background: #fff; border-bottom: 2px solid var(--red); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+        .logo { font-weight: 900; font-size: 22px; color: var(--red); text-decoration: none; }
+        nav a { text-decoration: none; color: var(--dark); font-size: 13px; font-weight: 600; text-transform: uppercase; margin-left: 25px; transition: 0.2s; }
         nav a:hover { color: var(--red); }
 
-        /* ОСНОВНАЯ СЕТКА */
-        .wrapper { display: grid; grid-template-columns: 260px 1fr 400px; gap: 40px; padding: 40px 5%; max-width: 1600px; margin: auto; }
+        .container { display: grid; grid-template-columns: 280px 1fr 400px; gap: 30px; padding: 30px 5%; max-width: 1700px; margin: auto; }
 
-        /* БОКОВОЕ МЕНЮ */
-        .sidebar h3 { font-size: 11px; color: #999; text-transform: uppercase; margin: 25px 0 15px; letter-spacing: 1.5px; }
-        .nav-link { 
-            display: block; padding: 12px 18px; border: 1px solid var(--border); margin-bottom: 10px;
-            text-decoration: none; color: #444; border-radius: 8px; font-size: 14px; transition: 0.3s; background: var(--light-gray);
-        }
-        .nav-link:hover { border-color: var(--red); color: var(--red); transform: translateX(5px); background: #fff; }
-        .nav-link.active { background: var(--red); color: #fff; border-color: var(--red); box-shadow: 0 4px 12px rgba(179, 0, 0, 0.2); }
+        /* БОКОВАЯ ПАНЕЛЬ */
+        .sidebar { background: #fff; padding: 20px; border-radius: 12px; border: 1px solid var(--border); height: fit-content; position: sticky; top: 100px; }
+        .sidebar h3 { font-size: 11px; text-transform: uppercase; color: #94a3b8; letter-spacing: 1px; margin-bottom: 15px; }
+        .nav-link { display: block; padding: 10px 15px; margin-bottom: 5px; color: #475569; text-decoration: none; border-radius: 6px; transition: 0.2s; font-size: 14px; }
+        .nav-link:hover { background: #f1f5f9; color: var(--red); }
+        .nav-link.active { background: var(--red); color: #fff; }
 
-        /* КОНТЕНТ: КАТАЛОГ */
-        .section-header { border-bottom: 2px solid var(--light-gray); margin-bottom: 25px; padding-bottom: 10px; }
-        .section-header h2 { margin: 0; font-size: 20px; color: var(--dark); }
-        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 50px; }
-        .product-card { border: 1px solid var(--border); padding: 25px; border-radius: 12px; transition: 0.3s; display: flex; flex-direction: column; background: #fff; }
-        .product-card:hover { border-color: var(--red); box-shadow: 0 15px 30px rgba(0,0,0,0.07); }
-        .product-tag { font-size: 10px; color: var(--red); font-weight: bold; text-transform: uppercase; margin-bottom: 8px; }
-        .product-card h4 { margin: 0 0 12px; font-size: 17px; }
-        .product-card p { font-size: 13px; color: #666; margin-bottom: 20px; flex-grow: 1; }
-        .action-btn { 
-            text-align: center; text-decoration: none; font-size: 12px; font-weight: 800; 
-            color: var(--red); border: 2px solid var(--red); padding: 10px; border-radius: 6px; transition: 0.2s; 
+        /* КАТАЛОГ С ОПИСАНИЕМ */
+        .product-section { margin-bottom: 60px; }
+        .section-title { font-size: 24px; font-weight: 800; margin-bottom: 25px; border-left: 5px solid var(--red); padding-left: 15px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        
+        .item-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 25px; transition: 0.3s; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .item-card:hover { transform: translateY(-5px); border-color: var(--red); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
+        .item-card h4 { margin: 0 0 10px; font-size: 18px; color: #0f172a; }
+        .tech-info { font-size: 12px; color: #64748b; margin-bottom: 15px; line-height: 1.6; }
+        .tech-info b { color: #334155; }
+        
+        .calc-trigger { 
+            margin-top: auto; background: transparent; border: 2px solid var(--red); color: var(--red); 
+            padding: 10px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer; 
+            text-align: center; text-decoration: none; transition: 0.2s;
         }
-        .action-btn:hover { background: var(--red); color: #fff; }
+        .calc-trigger:hover { background: var(--red); color: #fff; }
 
         /* ВИДЖЕТ КАЛЬКУЛЯТОРА */
-        .sticky-container { position: sticky; top: 100px; }
-        .widget-box { border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid var(--border); }
-        .widget-top { background: var(--red); color: #fff; padding: 20px; text-align: center; }
-        .widget-top h4 { margin: 0; text-transform: uppercase; letter-spacing: 1px; font-size: 14px; }
-        .widget-top p { margin: 5px 0 0; font-size: 11px; opacity: 0.8; }
-        .iframe-wrapper { height: 600px; background: #fff; }
+        .widget-wrap { position: sticky; top: 100px; transition: 0.5s; }
+        .widget-wrap.highlight { transform: scale(1.03); box-shadow: 0 0 30px rgba(179, 0, 0, 0.3); }
+        .widget-box { background: #fff; border-radius: 12px; border: 2px solid var(--red); overflow: hidden; }
+        .widget-head { background: var(--red); color: #fff; padding: 15px; text-align: center; }
+        .widget-head h4 { margin: 0; font-size: 14px; text-transform: uppercase; }
+        .iframe-container { height: 620px; }
         iframe { width: 100%; height: 100%; border: none; }
 
-        footer { background: var(--dark); color: #fff; padding: 50px 5%; text-align: center; font-size: 13px; margin-top: 50px; }
+        footer { background: #0f172a; color: #94a3b8; padding: 50px 5%; text-align: center; font-size: 13px; }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="#" class="logo-group">
-        <span class="logo-main">STI GROUP</span>
-        <span class="logo-sub">Industrial Logistics Solutions</span>
-    </a>
+    <a href="#" class="logo">STI GROUP | <span style="font-weight: 300; font-size: 14px; color: #64748b;">LOGISTICS</span></a>
     <nav>
-        <a href="#catalog">Продукция</a>
-        <a href="#calc-section">Калькулятор</a>
-        <a href="#about">О системе</a>
+        <a href="#setka">Сетка</a>
+        <a href="#provoloka">Проволока</a>
+        <a href="#kanat">Канаты</a>
+        <a href="#calc">Калькулятор</a>
     </nav>
 </header>
 
-<div class="wrapper">
+<div class="container">
     <aside class="sidebar">
-        <h3>КАТАЛОГ ТОВАРОВ</h3>
+        <h3>Номенклатура</h3>
         <a href="#setka" class="nav-link">Сетка арматурная</a>
-        <a href="#provoloka" class="nav-link">Проволока стальная</a>
+        <a href="#provoloka" class="nav-link">Проволока ВР-1 / ОК</a>
         <a href="#kanat" class="nav-link">Канаты и метизы</a>
-        
-        <h3>ИНСТРУМЕНТАРИЙ</h3>
-        <a href="#calc-section" class="nav-link active">Расчет отгрузки (v1.2)</a>
-        <a href="#about" class="nav-link">Техническая база</a>
+        <h3>Система</h3>
+        <a href="#calc" class="nav-link">Терминал расчета</a>
     </aside>
 
-    <main id="catalog">
-        <div class="section-header" id="setka">
-            <h2>Сетка сварная арматурная</h2>
-        </div>
-        <div class="catalog-grid">
-            <div class="product-card">
-                <span class="product-tag">ГОСТ 23279-2012</span>
-                <h4>Сетка 50х50х3</h4>
-                <p>Легкая сварная сетка в картах. Оптимальна для стяжки пола и армирования кирпичной кладки.</p>
-                <a href="#calc-section" class="action-btn">РАССЧИТАТЬ ВЕС</a>
+    <main>
+        <section class="product-section" id="setka">
+            <div class="section-title">Сетка сварная (ГОСТ 23279)</div>
+            <div class="grid">
+                <div class="item-card">
+                    <h4>Сетка 50х50х3</h4>
+                    <div class="tech-info">
+                        <b>Размер карты:</b> 0.5х2.0 м<br>
+                        <b>Сталь:</b> Ст3кп / ВР-1<br>
+                        <b>Применение:</b> Армирование стяжки, кладочные работы.
+                    </div>
+                    <button class="calc-trigger" onclick="focusCalc()">ВНЕСТИ В РАСЧЕТ</button>
+                </div>
+                <div class="item-card">
+                    <h4>Сетка 100х100х5</h4>
+                    <div class="tech-info">
+                        <b>Размер карты:</b> 2.0х3.0 м<br>
+                        <b>Сталь:</b> А-III / Ст5сп<br>
+                        <b>Применение:</b> Фундаментные плиты, дорожные покрытия.
+                    </div>
+                    <button class="calc-trigger" onclick="focusCalc()">ВНЕСТИ В РАСЧЕТ</button>
+                </div>
             </div>
-            <div class="product-card">
-                <span class="product-tag">ГОСТ 23279-2012</span>
-                <h4>Сетка 100х100х5</h4>
-                <p>Тяжелая арматурная сетка для фундаментов и капитальных дорожных работ.</p>
-                <a href="#calc-section" class="action-btn">РАССЧИТАТЬ ВЕС</a>
-            </div>
-        </div>
+        </section>
 
-        <div class="section-header" id="provoloka">
-            <h2>Проволока стальная</h2>
-        </div>
-        <div class="catalog-grid">
-            <div class="product-card">
-                <span class="product-tag">ГОСТ 6727-80</span>
-                <h4>Проволока ВР-1 (4.0 мм)</h4>
-                <p>Холоднотянутая проволока для производства сварных сеток и ЖБК.</p>
-                <a href="#calc-section" class="action-btn">РАССЧИТАТЬ ВЕС</a>
+        <section class="product-section" id="provoloka">
+            <div class="section-title">Проволока стальная (ГОСТ 6727)</div>
+            <div class="grid">
+                <div class="item-card">
+                    <h4>Проволока ВР-1 4.0мм</h4>
+                    <div class="tech-info">
+                        <b>Покрытие:</b> Без покрытия (черная)<br>
+                        <b>Упаковка:</b> Бухты по 500-1000 кг<br>
+                        <b>Особенности:</b> Рифленая поверхность для сцепления.
+                    </div>
+                    <button class="calc-trigger" onclick="focusCalc()">ВНЕСТИ В РАСЧЕТ</button>
+                </div>
+                <div class="item-card">
+                    <h4>Проволока ОК т/о 1.2мм</h4>
+                    <div class="tech-info">
+                        <b>Обработка:</b> Термический отжиг<br>
+                        <b>Тип:</b> Вязальная мягкая<br>
+                        <b>Применение:</b> Увязка арматуры, упаковка.
+                    </div>
+                    <button class="calc-trigger" onclick="focusCalc()">ВНЕСТИ В РАСЧЕТ</button>
+                </div>
             </div>
-            <div class="product-card">
-                <span class="product-tag">ГОСТ 3282-74</span>
-                <h4>Проволока ОК (т/о)</h4>
-                <p>Термически обработанная (вязальная) проволока для увязки арматуры.</p>
-                <a href="#calc-section" class="action-btn">РАССЧИТАТЬ ВЕС</a>
-            </div>
-        </div>
-
-        <div id="about" style="background: var(--light-gray); padding: 30px; border-radius: 12px;">
-            <h3 style="margin-top: 0;">О системе автоматизации</h3>
-            <p style="font-size: 14px; color: #555;">Данный программный комплекс разработан для автоматизации расчета параметров отгрузки метизной продукции. Система интегрирована с базой данных ГОСТов и автоматически подбирает тип транспортного средства в зависимости от суммарного теоретического веса продукции.</p>
-        </div>
+        </section>
     </main>
 
-    <section id="calc-section">
-        <div class="sticky-container">
+    <aside id="calc">
+        <div class="widget-wrap" id="widget-wrap">
             <div class="widget-box">
-                <div class="widget-top">
-                    <h4>КОНФИГУРАТОР ОТГРУЗКИ</h4>
-                    <p>Интеллектуальный подбор транспорта</p>
+                <div class="widget-head">
+                    <h4>Терминал расчета отгрузки</h4>
                 </div>
-                <div class="iframe-wrapper">
+                <div class="iframe-container">
                     <iframe src="https://matthewfl1.github.io/sti-project/"></iframe>
                 </div>
             </div>
         </div>
-    </section>
+    </aside>
 </div>
 
 <footer>
-    <div style="font-weight: bold; color: var(--red); margin-bottom: 15px;">STI GROUP | ООО "СТРОЙТЕХИНВЕСТ"</div>
-    Центральный офис: г. Орел, ул. Поселковая, д. 15<br>
-    © 2026 Разработка: Департамент ИТ (НИУ РАНХиГС)
+    © 2026 ООО "Стройтехинвест". Автоматизация метизного производства.<br>
+    г. Орел, ул. Поселковая, д. 15 | Система разработана для внутреннего пользования.
 </footer>
+
+<script>
+    function focusCalc() {
+        // Плавный скролл к калькулятору
+        const calcSection = document.getElementById('calc');
+        calcSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Визуальный эффект подсветки виджета
+        const wrap = document.getElementById('widget-wrap');
+        wrap.classList.add('highlight');
+        setTimeout(() => {
+            wrap.classList.remove('highlight');
+        }, 1500);
+    }
+</script>
 
 </body>
 </html>
